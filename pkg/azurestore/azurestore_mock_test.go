@@ -7,7 +7,7 @@ package azurestore_test
 import (
 	context "context"
 	gomock "github.com/golang/mock/gomock"
-	azurestore "github.com/tus/tusd/pkg/azurestore"
+	azurestore "github.com/AhmedAbouelkher/tusd/pkg/azurestore"
 	io "io"
 	reflect "reflect"
 )

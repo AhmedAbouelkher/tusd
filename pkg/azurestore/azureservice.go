@@ -25,8 +25,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/AhmedAbouelkher/tusd/pkg/handler"
 	"github.com/Azure/azure-storage-blob-go/azblob"
-	"github.com/tus/tusd/pkg/handler"
 )
 
 const (

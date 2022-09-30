@@ -1,9 +1,9 @@
 package handler_test
 
 import (
-	"github.com/tus/tusd/pkg/filestore"
-	"github.com/tus/tusd/pkg/handler"
-	"github.com/tus/tusd/pkg/memorylocker"
+	"github.com/AhmedAbouelkher/tusd/pkg/filestore"
+	"github.com/AhmedAbouelkher/tusd/pkg/handler"
+	"github.com/AhmedAbouelkher/tusd/pkg/memorylocker"
 )
 
 func ExampleNewStoreComposer() {
