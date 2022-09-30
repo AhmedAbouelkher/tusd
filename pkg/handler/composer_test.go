@@ -19,5 +19,5 @@ func ExampleNewStoreComposer() {
 		StoreComposer: composer,
 	}
 
-	_, _ = handler.NewHandler(config)
+	_, _ = handler.NewHandler(&config)
 }

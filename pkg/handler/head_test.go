@@ -36,7 +36,7 @@ func TestHead(t *testing.T) {
 		composer.UseCore(store)
 		composer.UseLocker(locker)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -66,7 +66,7 @@ func TestHead(t *testing.T) {
 	SubTest(t, "UploadNotFoundFail", func(t *testing.T, store *MockFullDataStore, composer *StoreComposer) {
 		store.EXPECT().GetUpload(context.Background(), "no").Return(nil, ErrNotFound)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -100,7 +100,7 @@ func TestHead(t *testing.T) {
 			}, nil),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -130,7 +130,7 @@ func TestHead(t *testing.T) {
 			}, nil),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 

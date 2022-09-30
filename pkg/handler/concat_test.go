@@ -18,7 +18,7 @@ func TestConcat(t *testing.T) {
 		composer.UseCore(store)
 		composer.UseConcater(store)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -55,7 +55,7 @@ func TestConcat(t *testing.T) {
 				}, nil),
 			)
 
-			handler, _ := NewHandler(Config{
+			handler, _ := NewHandler(&Config{
 				BasePath:      "files",
 				StoreComposer: composer,
 			})
@@ -84,7 +84,7 @@ func TestConcat(t *testing.T) {
 				}, nil),
 			)
 
-			handler, _ := NewHandler(Config{
+			handler, _ := NewHandler(&Config{
 				BasePath:      "files",
 				StoreComposer: composer,
 			})
@@ -145,7 +145,7 @@ func TestConcat(t *testing.T) {
 				uploadC.EXPECT().ConcatUploads(context.Background(), []Upload{uploadA, uploadB}).Return(nil),
 			)
 
-			handler, _ := NewHandler(Config{
+			handler, _ := NewHandler(&Config{
 				BasePath:              "files",
 				StoreComposer:         composer,
 				NotifyCompleteUploads: true,
@@ -198,7 +198,7 @@ func TestConcat(t *testing.T) {
 				}, nil),
 			)
 
-			handler, _ := NewHandler(Config{
+			handler, _ := NewHandler(&Config{
 				BasePath:      "files",
 				StoreComposer: composer,
 			})
@@ -235,7 +235,7 @@ func TestConcat(t *testing.T) {
 				}, nil),
 			)
 
-			handler, _ := NewHandler(Config{
+			handler, _ := NewHandler(&Config{
 				BasePath:      "files",
 				StoreComposer: composer,
 			})
@@ -264,7 +264,7 @@ func TestConcat(t *testing.T) {
 				}, nil),
 			)
 
-			handler, _ := NewHandler(Config{
+			handler, _ := NewHandler(&Config{
 				MaxSize:       100,
 				BasePath:      "files",
 				StoreComposer: composer,
@@ -295,7 +295,7 @@ func TestConcat(t *testing.T) {
 				}, nil),
 			)
 
-			handler, _ := NewHandler(Config{
+			handler, _ := NewHandler(&Config{
 				StoreComposer: composer,
 			})
 
@@ -313,7 +313,7 @@ func TestConcat(t *testing.T) {
 		})
 
 		SubTest(t, "InvalidConcatHeaderFail", func(t *testing.T, store *MockFullDataStore, composer *StoreComposer) {
-			handler, _ := NewHandler(Config{
+			handler, _ := NewHandler(&Config{
 				StoreComposer: composer,
 			})
 

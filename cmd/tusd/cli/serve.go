@@ -23,7 +23,7 @@ const (
 // specified, in which case a different socket creation and binding mechanism
 // is put in place.
 func Serve() {
-	config := handler.Config{
+	config := &handler.Config{
 		MaxSize:                 Flags.MaxSize,
 		BasePath:                Flags.Basepath,
 		RespectForwardedHeaders: Flags.BehindProxy,
@@ -36,7 +36,7 @@ func Serve() {
 		NotifyCreatedUploads:    true,
 	}
 
-	if err := SetupPreHooks(&config); err != nil {
+	if err := SetupPreHooks(config); err != nil {
 		stderr.Fatalf("Unable to setup hooks for handler: %s", err)
 	}
 

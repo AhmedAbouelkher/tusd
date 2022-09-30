@@ -28,7 +28,7 @@ func main() {
 
 	// Create a new HTTP handler for the tusd server by providing a configuration.
 	// The StoreComposer property must be set to allow the handler to function.
-	handler, err := tusd.NewHandler(tusd.Config{
+	handler, err := tusd.NewHandler(&tusd.Config{
 		BasePath:              "/files/",
 		StoreComposer:         composer,
 		NotifyCompleteUploads: true,

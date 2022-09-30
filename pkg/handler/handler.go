@@ -19,7 +19,7 @@ type Handler struct {
 // your existing router (aka mux) directly. It also allows the GET and DELETE
 // endpoints to be customized. These are not part of the protocol so can be
 // changed depending on your needs.
-func NewHandler(config Config) (*Handler, error) {
+func NewHandler(config *Config) (*Handler, error) {
 	if err := config.validate(); err != nil {
 		return nil, err
 	}

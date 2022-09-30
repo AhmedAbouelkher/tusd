@@ -12,7 +12,7 @@ func TestOptions(t *testing.T) {
 		composer = NewStoreComposer()
 		composer.UseCore(store)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 			MaxSize:       400,
 		})
@@ -30,7 +30,7 @@ func TestOptions(t *testing.T) {
 	})
 
 	SubTest(t, "InvalidVersion", func(t *testing.T, store *MockFullDataStore, composer *StoreComposer) {
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 

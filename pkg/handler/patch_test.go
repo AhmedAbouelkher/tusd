@@ -33,7 +33,7 @@ func TestPatch(t *testing.T) {
 			upload.EXPECT().FinishUpload(context.Background()),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer:         composer,
 			NotifyCompleteUploads: true,
 		})
@@ -85,7 +85,7 @@ func TestPatch(t *testing.T) {
 			upload.EXPECT().FinishUpload(context.Background()),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -120,7 +120,7 @@ func TestPatch(t *testing.T) {
 			}, nil),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -143,7 +143,7 @@ func TestPatch(t *testing.T) {
 	SubTest(t, "UploadNotFoundFail", func(t *testing.T, store *MockFullDataStore, composer *StoreComposer) {
 		store.EXPECT().GetUpload(context.Background(), "no").Return(nil, ErrNotFound)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -172,7 +172,7 @@ func TestPatch(t *testing.T) {
 			}, nil),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -202,7 +202,7 @@ func TestPatch(t *testing.T) {
 			}, nil),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -220,7 +220,7 @@ func TestPatch(t *testing.T) {
 	})
 
 	SubTest(t, "InvalidContentTypeFail", func(t *testing.T, store *MockFullDataStore, composer *StoreComposer) {
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -238,7 +238,7 @@ func TestPatch(t *testing.T) {
 	})
 
 	SubTest(t, "InvalidOffsetFail", func(t *testing.T, store *MockFullDataStore, composer *StoreComposer) {
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -278,7 +278,7 @@ func TestPatch(t *testing.T) {
 			upload.EXPECT().FinishUpload(context.Background()),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -323,7 +323,7 @@ func TestPatch(t *testing.T) {
 			upload.EXPECT().FinishUpload(context.Background()),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 			MaxSize:       20,
 		})
@@ -365,7 +365,7 @@ func TestPatch(t *testing.T) {
 			upload.EXPECT().FinishUpload(context.Background()),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 			MaxSize:       20,
 		})
@@ -414,7 +414,7 @@ func TestPatch(t *testing.T) {
 			upload2.EXPECT().FinishUpload(context.Background()),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 			MaxSize:       20,
 		})
@@ -475,7 +475,7 @@ func TestPatch(t *testing.T) {
 		composer.UseCore(store)
 		composer.UseLocker(locker)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -509,7 +509,7 @@ func TestPatch(t *testing.T) {
 			upload.EXPECT().WriteChunk(context.Background(), int64(10), NewReaderMatcher("first second third")).Return(int64(18), nil),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer:        composer,
 			NotifyUploadProgress: true,
 		})
@@ -585,7 +585,7 @@ func TestPatch(t *testing.T) {
 			upload.EXPECT().Terminate(context.Background()),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer:        composer,
 			NotifyUploadProgress: true,
 		})
@@ -654,7 +654,7 @@ func TestPatch(t *testing.T) {
 			upload.EXPECT().WriteChunk(context.Background(), int64(0), NewReaderMatcher("first ")).Return(int64(6), nil),
 		)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 

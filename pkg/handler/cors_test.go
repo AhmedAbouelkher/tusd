@@ -10,7 +10,7 @@ import (
 
 func TestCORS(t *testing.T) {
 	SubTest(t, "Preflight", func(t *testing.T, store *MockFullDataStore, composer *StoreComposer) {
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -30,7 +30,7 @@ func TestCORS(t *testing.T) {
 	})
 
 	SubTest(t, "Conditional allow methods", func(t *testing.T, store *MockFullDataStore, composer *StoreComposer) {
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer:      composer,
 			DisableTermination: true,
 			DisableDownload:    true,
@@ -52,7 +52,7 @@ func TestCORS(t *testing.T) {
 	})
 
 	SubTest(t, "Request", func(t *testing.T, store *MockFullDataStore, composer *StoreComposer) {
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -71,7 +71,7 @@ func TestCORS(t *testing.T) {
 	})
 
 	SubTest(t, "AppendHeaders", func(t *testing.T, store *MockFullDataStore, composer *StoreComposer) {
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 

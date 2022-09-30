@@ -1,9 +1,7 @@
 package uid
 
 import (
-	"crypto/rand"
-	"encoding/hex"
-	"io"
+	"github.com/google/uuid"
 )
 
 // uid returns a unique id. These ids consist of 128 bits from a
@@ -12,12 +10,9 @@ import (
 //
 // See: http://en.wikipedia.org/wiki/UUID#Random_UUID_probability_of_duplicates
 func Uid() string {
-	id := make([]byte, 16)
-	_, err := io.ReadFull(rand.Reader, id)
+	id, err := uuid.NewRandom()
 	if err != nil {
-		// This is probably an appropriate way to handle errors from our source
-		// for random bits.
 		panic(err)
 	}
-	return hex.EncodeToString(id)
+	return id.String()
 }

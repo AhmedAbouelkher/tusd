@@ -113,7 +113,7 @@ func newHookEvent(info FileInfo, r *http.Request) HookEvent {
 // such as PostFile, HeadFile, PatchFile and DelFile. In addition the GetFile method
 // is provided which is, however, not part of the specification.
 type UnroutedHandler struct {
-	config        Config
+	config        *Config
 	composer      *StoreComposer
 	isBasePathAbs bool
 	basePath      string
@@ -156,7 +156,7 @@ type UnroutedHandler struct {
 // configuration. It exposes the http handlers which need to be combined with
 // a router (aka mux) of your choice. If you are looking for preconfigured
 // handler see NewHandler.
-func NewUnroutedHandler(config Config) (*UnroutedHandler, error) {
+func NewUnroutedHandler(config *Config) (*UnroutedHandler, error) {
 	if err := config.validate(); err != nil {
 		return nil, err
 	}
@@ -802,7 +802,7 @@ var mimeInlineBrowserWhitelist = map[string]struct{}{
 	"audio/webm":      struct{}{},
 	"video/webm":      struct{}{},
 	"audio/ogg":       struct{}{},
-	"video/ogg":      struct{}{},
+	"video/ogg":       struct{}{},
 	"application/ogg": struct{}{},
 }
 

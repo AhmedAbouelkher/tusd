@@ -17,7 +17,7 @@ func TestTerminate(t *testing.T) {
 		composer.UseCore(store)
 		composer.UseTerminater(store)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer: composer,
 		})
 
@@ -55,7 +55,7 @@ func TestTerminate(t *testing.T) {
 		composer.UseTerminater(store)
 		composer.UseLocker(locker)
 
-		handler, _ := NewHandler(Config{
+		handler, _ := NewHandler(&Config{
 			StoreComposer:           composer,
 			NotifyTerminatedUploads: true,
 		})
@@ -88,7 +88,7 @@ func TestTerminate(t *testing.T) {
 		composer = NewStoreComposer()
 		composer.UseCore(store)
 
-		handler, _ := NewUnroutedHandler(Config{
+		handler, _ := NewUnroutedHandler(&Config{
 			StoreComposer: composer,
 		})
 
