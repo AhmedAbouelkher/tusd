@@ -376,6 +376,7 @@ func (handler *UnroutedHandler) PostFile(w http.ResponseWriter, r *http.Request)
 	// include it in cases of failure when an error is returned
 	url := handler.absFileURL(r, id)
 	w.Header().Set("Location", url)
+	w.Header().Set("stream-media-id", id)
 
 	handler.Metrics.incUploadsCreated()
 	handler.log("UploadCreated", "id", id, "size", i64toa(size), "url", url)
@@ -486,6 +487,7 @@ func (handler *UnroutedHandler) HeadFile(w http.ResponseWriter, r *http.Request)
 
 	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("Upload-Offset", strconv.FormatInt(info.Offset, 10))
+	w.Header().Set("stream-media-id", id)
 	handler.sendResp(w, r, http.StatusOK)
 }
 
@@ -582,7 +584,7 @@ func (handler *UnroutedHandler) PatchFile(w http.ResponseWriter, r *http.Request
 		handler.sendError(w, r, err)
 		return
 	}
-
+	w.Header().Set("stream-media-id", id)
 	handler.sendResp(w, r, http.StatusNoContent)
 }
 
@@ -770,6 +772,7 @@ func (handler *UnroutedHandler) GetFile(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	w.Header().Set("stream-media-id", id)
 	handler.sendResp(w, r, http.StatusOK)
 	io.Copy(w, src)
 
@@ -782,28 +785,28 @@ func (handler *UnroutedHandler) GetFile(w http.ResponseWriter, r *http.Request) 
 // mimeInlineBrowserWhitelist is a map containing MIME types which should be
 // allowed to be rendered by browser inline, instead of being forced to be
 // downloaded. For example, HTML or SVG files are not allowed, since they may
-// contain malicious JavaScript. In a similiar fashion PDF is not on this list
+// contain malicious JavaScript. In a similar fashion PDF is not on this list
 // as their parsers commonly contain vulnerabilities which can be exploited.
 // The values of this map does not convey any meaning and are therefore just
 // empty structs.
 var mimeInlineBrowserWhitelist = map[string]struct{}{
-	"text/plain": struct{}{},
+	"text/plain": {},
 
-	"image/png":  struct{}{},
-	"image/jpeg": struct{}{},
-	"image/gif":  struct{}{},
-	"image/bmp":  struct{}{},
-	"image/webp": struct{}{},
+	"image/png":  {},
+	"image/jpeg": {},
+	"image/gif":  {},
+	"image/bmp":  {},
+	"image/webp": {},
 
-	"audio/wave":      struct{}{},
-	"audio/wav":       struct{}{},
-	"audio/x-wav":     struct{}{},
-	"audio/x-pn-wav":  struct{}{},
-	"audio/webm":      struct{}{},
-	"video/webm":      struct{}{},
-	"audio/ogg":       struct{}{},
-	"video/ogg":       struct{}{},
-	"application/ogg": struct{}{},
+	"audio/wave":      {},
+	"audio/wav":       {},
+	"audio/x-wav":     {},
+	"audio/x-pn-wav":  {},
+	"audio/webm":      {},
+	"video/webm":      {},
+	"audio/ogg":       {},
+	"video/ogg":       {},
+	"application/ogg": {},
 }
 
 // filterContentType returns the values for the Content-Type and
@@ -887,6 +890,7 @@ func (handler *UnroutedHandler) DelFile(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	w.Header().Set("stream-media-id", id)
 	handler.sendResp(w, r, http.StatusNoContent)
 }
 
