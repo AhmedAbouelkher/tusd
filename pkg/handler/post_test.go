@@ -58,7 +58,8 @@ func TestPost(t *testing.T) {
 			},
 			Code: http.StatusCreated,
 			ResHeader: map[string]string{
-				"Location": "https://buy.art/files/foo",
+				"Location":        "https://buy.art/files/foo",
+				"stream-media-id": "foo",
 			},
 		}).Run(handler, t)
 
@@ -104,7 +105,8 @@ func TestPost(t *testing.T) {
 			},
 			Code: http.StatusCreated,
 			ResHeader: map[string]string{
-				"Location": "https://buy.art/files/foo",
+				"Location":        "https://buy.art/files/foo",
+				"stream-media-id": "foo",
 			},
 		}).Run(handler, t)
 
@@ -237,7 +239,8 @@ func TestPost(t *testing.T) {
 				},
 				Code: http.StatusCreated,
 				ResHeader: map[string]string{
-					"Location": "http://tus.io/files/foo",
+					"Location":        "http://tus.io/files/foo",
+					"stream-media-id": "foo",
 				},
 			}).Run(handler, t)
 		})
@@ -275,7 +278,8 @@ func TestPost(t *testing.T) {
 				},
 				Code: http.StatusCreated,
 				ResHeader: map[string]string{
-					"Location": "https://foo.com/files/foo",
+					"Location":        "https://foo.com/files/foo",
+					"stream-media-id": "foo",
 				},
 			}).Run(handler, t)
 		})
@@ -314,7 +318,8 @@ func TestPost(t *testing.T) {
 				},
 				Code: http.StatusCreated,
 				ResHeader: map[string]string{
-					"Location": "https://upload.example.tld/files/foo",
+					"Location":        "https://upload.example.tld/files/foo",
+					"stream-media-id": "foo",
 				},
 			}).Run(handler, t)
 		})
@@ -352,7 +357,8 @@ func TestPost(t *testing.T) {
 				},
 				Code: http.StatusCreated,
 				ResHeader: map[string]string{
-					"Location": "http://tus.io/files/foo",
+					"Location":        "http://tus.io/files/foo",
+					"stream-media-id": "foo",
 				},
 			}).Run(handler, t)
 		})
@@ -408,8 +414,9 @@ func TestPost(t *testing.T) {
 				ReqBody: strings.NewReader("hello"),
 				Code:    http.StatusCreated,
 				ResHeader: map[string]string{
-					"Location":      "http://tus.io/files/foo",
-					"Upload-Offset": "5",
+					"Location":        "http://tus.io/files/foo",
+					"Upload-Offset":   "5",
+					"stream-media-id": "foo",
 				},
 			}).Run(handler, t)
 		})
@@ -481,8 +488,9 @@ func TestPost(t *testing.T) {
 				ReqBody: strings.NewReader("hello"),
 				Code:    http.StatusCreated,
 				ResHeader: map[string]string{
-					"Location":      "http://tus.io/files/foo",
-					"Upload-Offset": "",
+					"Location":        "http://tus.io/files/foo",
+					"Upload-Offset":   "",
+					"stream-media-id": "foo",
 				},
 			}).Run(handler, t)
 		})

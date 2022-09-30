@@ -48,10 +48,11 @@ func TestHead(t *testing.T) {
 			},
 			Code: http.StatusOK,
 			ResHeader: map[string]string{
-				"Upload-Offset":  "11",
-				"Upload-Length":  "44",
-				"Content-Length": "44",
-				"Cache-Control":  "no-store",
+				"Upload-Offset":   "11",
+				"Upload-Length":   "44",
+				"Content-Length":  "44",
+				"Cache-Control":   "no-store",
+				"stream-media-id": "yes",
 			},
 		}).Run(handler, t)
 
@@ -78,7 +79,8 @@ func TestHead(t *testing.T) {
 			},
 			Code: http.StatusNotFound,
 			ResHeader: map[string]string{
-				"Content-Length": "0",
+				"Content-Length":  "0",
+				"stream-media-id": "no",
 			},
 		}).Run(handler, t)
 
@@ -113,6 +115,7 @@ func TestHead(t *testing.T) {
 			Code: http.StatusOK,
 			ResHeader: map[string]string{
 				"Upload-Defer-Length": "1",
+				"stream-media-id":     "yes",
 			},
 		}).Run(handler, t)
 	})
@@ -143,6 +146,7 @@ func TestHead(t *testing.T) {
 			Code: http.StatusOK,
 			ResHeader: map[string]string{
 				"Upload-Defer-Length": "",
+				"stream-media-id":     "yes",
 			},
 		}).Run(handler, t)
 	})

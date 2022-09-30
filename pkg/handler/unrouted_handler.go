@@ -371,12 +371,12 @@ func (handler *UnroutedHandler) PostFile(w http.ResponseWriter, r *http.Request)
 	}
 
 	id := info.ID
+	w.Header().Set("stream-media-id", id)
 
 	// Add the Location header directly after creating the new resource to even
 	// include it in cases of failure when an error is returned
 	url := handler.absFileURL(r, id)
 	w.Header().Set("Location", url)
-	w.Header().Set("stream-media-id", id)
 
 	handler.Metrics.incUploadsCreated()
 	handler.log("UploadCreated", "id", id, "size", i64toa(size), "url", url)
@@ -422,7 +422,6 @@ func (handler *UnroutedHandler) PostFile(w http.ResponseWriter, r *http.Request)
 			return
 		}
 	}
-
 	handler.sendResp(w, r, http.StatusCreated)
 }
 
@@ -435,6 +434,8 @@ func (handler *UnroutedHandler) HeadFile(w http.ResponseWriter, r *http.Request)
 		handler.sendError(w, r, err)
 		return
 	}
+
+	w.Header().Set("stream-media-id", id)
 
 	if handler.composer.UsesLocker {
 		lock, err := handler.lockUpload(id)
@@ -514,6 +515,7 @@ func (handler *UnroutedHandler) PatchFile(w http.ResponseWriter, r *http.Request
 		handler.sendError(w, r, err)
 		return
 	}
+	w.Header().Set("stream-media-id", id)
 
 	if handler.composer.UsesLocker {
 		lock, err := handler.lockUpload(id)
@@ -584,7 +586,6 @@ func (handler *UnroutedHandler) PatchFile(w http.ResponseWriter, r *http.Request
 		handler.sendError(w, r, err)
 		return
 	}
-	w.Header().Set("stream-media-id", id)
 	handler.sendResp(w, r, http.StatusNoContent)
 }
 
@@ -730,6 +731,7 @@ func (handler *UnroutedHandler) GetFile(w http.ResponseWriter, r *http.Request) 
 		handler.sendError(w, r, err)
 		return
 	}
+	w.Header().Set("stream-media-id", id)
 
 	if handler.composer.UsesLocker {
 		lock, err := handler.lockUpload(id)
@@ -772,7 +774,6 @@ func (handler *UnroutedHandler) GetFile(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	w.Header().Set("stream-media-id", id)
 	handler.sendResp(w, r, http.StatusOK)
 	io.Copy(w, src)
 
@@ -858,6 +859,7 @@ func (handler *UnroutedHandler) DelFile(w http.ResponseWriter, r *http.Request) 
 		handler.sendError(w, r, err)
 		return
 	}
+	w.Header().Set("stream-media-id", id)
 
 	if handler.composer.UsesLocker {
 		lock, err := handler.lockUpload(id)
@@ -890,7 +892,6 @@ func (handler *UnroutedHandler) DelFile(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	w.Header().Set("stream-media-id", id)
 	handler.sendResp(w, r, http.StatusNoContent)
 }
 

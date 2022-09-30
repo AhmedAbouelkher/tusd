@@ -52,7 +52,8 @@ func TestPatch(t *testing.T) {
 			ReqBody: strings.NewReader("hello"),
 			Code:    http.StatusNoContent,
 			ResHeader: map[string]string{
-				"Upload-Offset": "10",
+				"Upload-Offset":   "10",
+				"stream-media-id": "yes",
 			},
 		}).Run(handler, t)
 
@@ -101,7 +102,8 @@ func TestPatch(t *testing.T) {
 			ReqBody: strings.NewReader("hello"),
 			Code:    http.StatusNoContent,
 			ResHeader: map[string]string{
-				"Upload-Offset": "10",
+				"Upload-Offset":   "10",
+				"stream-media-id": "yes",
 			},
 		}).Run(handler, t)
 	})
@@ -135,7 +137,8 @@ func TestPatch(t *testing.T) {
 			ReqBody: strings.NewReader(""),
 			Code:    http.StatusNoContent,
 			ResHeader: map[string]string{
-				"Upload-Offset": "20",
+				"Upload-Offset":   "20",
+				"stream-media-id": "yes",
 			},
 		}).Run(handler, t)
 	})
@@ -299,7 +302,8 @@ func TestPatch(t *testing.T) {
 			ReqBody: body,
 			Code:    http.StatusNoContent,
 			ResHeader: map[string]string{
-				"Upload-Offset": "20",
+				"Upload-Offset":   "20",
+				"stream-media-id": "yes",
 			},
 		}).Run(handler, t)
 	})
@@ -342,7 +346,8 @@ func TestPatch(t *testing.T) {
 			ReqBody: body,
 			Code:    http.StatusNoContent,
 			ResHeader: map[string]string{
-				"Upload-Offset": "20",
+				"Upload-Offset":   "20",
+				"stream-media-id": "yes",
 			},
 		}).Run(handler, t)
 	})
@@ -379,9 +384,11 @@ func TestPatch(t *testing.T) {
 				"Upload-Offset": "20",
 				"Upload-Length": "20",
 			},
-			ReqBody:   nil,
-			Code:      http.StatusNoContent,
-			ResHeader: map[string]string{},
+			ReqBody: nil,
+			Code:    http.StatusNoContent,
+			ResHeader: map[string]string{
+				"stream-media-id": "yes",
+			},
 		}).Run(handler, t)
 	})
 
@@ -431,7 +438,8 @@ func TestPatch(t *testing.T) {
 			ReqBody: strings.NewReader("hello"),
 			Code:    http.StatusNoContent,
 			ResHeader: map[string]string{
-				"Upload-Offset": "10",
+				"Upload-Offset":   "10",
+				"stream-media-id": "yes",
 			},
 		}).Run(handler, t)
 
@@ -446,7 +454,8 @@ func TestPatch(t *testing.T) {
 			ReqBody: strings.NewReader("thisismore"),
 			Code:    http.StatusNoContent,
 			ResHeader: map[string]string{
-				"Upload-Offset": "20",
+				"Upload-Offset":   "20",
+				"stream-media-id": "yes",
 			},
 		}).Run(handler, t)
 	})
@@ -555,7 +564,8 @@ func TestPatch(t *testing.T) {
 			ReqBody: reader,
 			Code:    http.StatusNoContent,
 			ResHeader: map[string]string{
-				"Upload-Offset": "28",
+				"Upload-Offset":   "28",
+				"stream-media-id": "yes",
 			},
 		}).Run(handler, t)
 
@@ -627,7 +637,8 @@ func TestPatch(t *testing.T) {
 			ReqBody: reader,
 			Code:    http.StatusBadRequest,
 			ResHeader: map[string]string{
-				"Upload-Offset": "",
+				"Upload-Offset":   "",
+				"stream-media-id": "yes",
 			},
 			ResBody: "upload has been stopped by server\n",
 		}).Run(handler, t)
@@ -678,7 +689,8 @@ func TestPatch(t *testing.T) {
 			ReqBody: reader,
 			Code:    http.StatusInternalServerError,
 			ResHeader: map[string]string{
-				"Upload-Offset": "",
+				"Upload-Offset":   "",
+				"stream-media-id": "yes",
 			},
 			ResBody: "an error while reading the body\n",
 		}).Run(handler, t)
