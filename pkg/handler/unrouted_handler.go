@@ -371,7 +371,7 @@ func (handler *UnroutedHandler) PostFile(w http.ResponseWriter, r *http.Request)
 	}
 
 	id := info.ID
-	w.Header().Set("stream-media-id", id)
+	w.Header().Set("stream-media-id", extractUploadId(id))
 
 	// Add the Location header directly after creating the new resource to even
 	// include it in cases of failure when an error is returned
@@ -435,7 +435,7 @@ func (handler *UnroutedHandler) HeadFile(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	w.Header().Set("stream-media-id", id)
+	w.Header().Set("stream-media-id", extractUploadId(id))
 
 	if handler.composer.UsesLocker {
 		lock, err := handler.lockUpload(id)
@@ -488,7 +488,7 @@ func (handler *UnroutedHandler) HeadFile(w http.ResponseWriter, r *http.Request)
 
 	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("Upload-Offset", strconv.FormatInt(info.Offset, 10))
-	w.Header().Set("stream-media-id", id)
+	w.Header().Set("stream-media-id", extractUploadId(id))
 	handler.sendResp(w, r, http.StatusOK)
 }
 
@@ -515,7 +515,7 @@ func (handler *UnroutedHandler) PatchFile(w http.ResponseWriter, r *http.Request
 		handler.sendError(w, r, err)
 		return
 	}
-	w.Header().Set("stream-media-id", id)
+	w.Header().Set("stream-media-id", extractUploadId(id))
 
 	if handler.composer.UsesLocker {
 		lock, err := handler.lockUpload(id)
@@ -731,7 +731,7 @@ func (handler *UnroutedHandler) GetFile(w http.ResponseWriter, r *http.Request) 
 		handler.sendError(w, r, err)
 		return
 	}
-	w.Header().Set("stream-media-id", id)
+	w.Header().Set("stream-media-id", extractUploadId(id))
 
 	if handler.composer.UsesLocker {
 		lock, err := handler.lockUpload(id)
@@ -859,7 +859,7 @@ func (handler *UnroutedHandler) DelFile(w http.ResponseWriter, r *http.Request) 
 		handler.sendError(w, r, err)
 		return
 	}
-	w.Header().Set("stream-media-id", id)
+	w.Header().Set("stream-media-id", extractUploadId(id))
 
 	if handler.composer.UsesLocker {
 		lock, err := handler.lockUpload(id)
@@ -1261,4 +1261,12 @@ func getRequestId(r *http.Request) string {
 	}
 
 	return reqId
+}
+
+func extractUploadId(id string) string {
+	index := strings.Index(id, "+")
+	if index == -1 {
+		return id
+	}
+	return id[:index]
 }

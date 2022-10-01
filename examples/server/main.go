@@ -29,9 +29,10 @@ func main() {
 	// Create a new HTTP handler for the tusd server by providing a configuration.
 	// The StoreComposer property must be set to allow the handler to function.
 	handler, err := tusd.NewHandler(&tusd.Config{
-		BasePath:              "/files/",
+		BasePath:              "http://localhost:8080/files/",
 		StoreComposer:         composer,
 		NotifyCompleteUploads: true,
+		NotifyCreatedUploads:  true,
 	})
 	if err != nil {
 		panic(fmt.Errorf("Unable to create handler: %s", err))
@@ -44,6 +45,13 @@ func main() {
 		for {
 			event := <-handler.CompleteUploads
 			fmt.Printf("Upload %s finished\n", event.Upload.ID)
+		}
+	}()
+
+	go func() {
+		for {
+			event := <-handler.CreatedUploads
+			fmt.Printf("Upload %s started\n", event.Upload.ID)
 		}
 	}()
 
