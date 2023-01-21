@@ -232,7 +232,7 @@ func (handler *UnroutedHandler) Middleware(h http.Handler) http.Handler {
 
 				// Preflight request
 				header.Add("Access-Control-Allow-Methods", allowedMethods)
-				header.Add("Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, X-Request-ID, X-HTTP-Method-Override, Content-Type, Upload-Length, Upload-Offset, Tus-Resumable, Upload-Metadata, Upload-Defer-Length, Upload-Concat")
+				header.Add("Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, X-Request-ID, X-HTTP-Method-Override, Content-Type, Upload-Length, Upload-Offset, Tus-Resumable, Upload-Metadata, Upload-Defer-Length, Upload-Concat, X-User-Id")
 				header.Set("Access-Control-Max-Age", "86400")
 
 			} else {
